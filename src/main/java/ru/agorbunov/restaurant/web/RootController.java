@@ -122,7 +122,10 @@ public class RootController {
     @GetMapping(value = "/orders")
     public String orders(Model model) {
         log.info("get /orders");
-        model.addAttribute("currentUser",CurrentEntities.getCurrentUser());
+        /*refresh currentUser from database for refresh total orders amount in jsp*/
+        User user = userService.get(CurrentEntities.getCurrentUser().getId());
+        CurrentEntities.setCurrentUser(user);
+        model.addAttribute("currentUser",user);
         return "orders";
     }
 
