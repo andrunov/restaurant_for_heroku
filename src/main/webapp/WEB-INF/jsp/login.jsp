@@ -53,7 +53,7 @@
                 <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('vgordeev.78@gmail.com', '111222777')">
                     <fmt:message key="app.login"/> <fmt:message key="roles.ROLE_USER_FULL"/>
                 </button>
-                <button type="submit" class="btn btn-lg btn-success" onclick="setCredentials('alex_grigory@gmail.com', '222333555')">
+                <button type="submit" class="btn btn-lg btn-success" onclick="setCredentials('r_eliseev78yandex.ru', '222333555')">
                     <fmt:message key="app.login"/> <fmt:message key="roles.ROLE_ADMIN_FULL"/>
                 </button>
             </p>
