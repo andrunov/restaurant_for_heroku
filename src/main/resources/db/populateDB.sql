@@ -16,7 +16,7 @@ INSERT INTO users(name,email,password,enabled,totalOrdersAmount) VALUES
   ('Вячеслав Шубин','slava_shubin@yahoo.com','password','TRUE',878.2),
   ('Алина Ковалёва','kov.alina@gmail.com','password','TRUE',889.6),
   ('Евгения Морозова','g.morozova@mail.ru','password','TRUE',590.0),
-  ('Эдуард Симонов','esimonov@gmail.com','password','TRUE',464.0),
+  ('Эдуард Симонов','esimonov@gmail.com','password','FALSE',464.0),
   ('Кирилл Тарасов','k_tarasov86@gmail.com','password','TRUE',668.3),
   ('Ирина Шубина','irisha_1978@yandex.ru','password','TRUE',752.0);
 
