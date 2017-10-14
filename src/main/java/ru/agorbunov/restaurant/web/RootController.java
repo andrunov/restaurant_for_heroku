@@ -20,6 +20,7 @@ import ru.agorbunov.restaurant.model.User;
 import ru.agorbunov.restaurant.service.*;
 import ru.agorbunov.restaurant.to.UserTo;
 import ru.agorbunov.restaurant.util.UserUtil;
+import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -224,6 +225,7 @@ public class RootController {
             return "profile";
         } else {
             User user = UserUtil.updateFromTo(AuthorizedUser.get().getLoggedUser(),userTo);
+            ValidationUtil.checkModificationAllowed(user.getId());
             userService.save(user);
             AuthorizedUser.get().setLoggedUser(user);
             status.setComplete();

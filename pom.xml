@@ -46,7 +46,7 @@
     </properties>
 
     <build>
-        <finalName>topjava</finalName>
+        <finalName>restaurant</finalName>
         <defaultGoal>package</defaultGoal>
         <plugins>
             <plugin>
@@ -66,7 +66,31 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                <execution>
+                <phase>package</phase>
+                <goals>
+                <goal>copy</goal>
+                </goals>
+                <configuration>
+                <artifactItems>
+                <artifactItem>
+                <groupId>com.github.jsimone</groupId>
+                <artifactId>webapp-runner</artifactId>
+                <version>8.5.11.2</version>
+                <destFileName>webapp-runner.jar</destFileName>
+                </artifactItem>
+                </artifactItems>
+                </configuration>
+                </execution>
+                </executions>
+            </plugin>
         </plugins>
+
     </build>
 
 
@@ -288,8 +312,6 @@
             <artifactId>validation-api</artifactId>
             <version>1.1.0.Final</version>
         </dependency>
-
-
     </dependencies>
 
     <dependencyManagement>

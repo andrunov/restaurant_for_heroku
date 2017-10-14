@@ -45,6 +45,7 @@ public class UserAjaxController {
     @DeleteMapping(value = "/{id}")
     public void delete(@PathVariable("id") int id) {
         log.info("delete " + id);
+        ValidationUtil.checkModificationAllowed(id);
         service.delete(id);
     }
 
@@ -56,6 +57,7 @@ public class UserAjaxController {
                                @RequestParam("password") String password,
                                @RequestParam("roles") String[] roleValues,
                                @RequestParam(value = "enabled",required = false) String enabled) {
+        ValidationUtil.checkModificationAllowed(id);
         Role[] roles = ParsingUtil.parseRoles(roleValues);
         Role firstRole = roles[0];
         Role[] restRoles = Arrays.copyOfRange(roles,roles.length - 1, roleValues.length);
