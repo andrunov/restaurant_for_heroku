@@ -23,13 +23,12 @@
         <jdbc:script encoding="utf-8" location="classpath:db/${populateDB}"/>
     </jdbc:initialize-database>
 
-    <!--<beans profile="heroku">-->
-        <context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>
+    <context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>
 
-        <bean class="java.net.URI" id="dbUrl">
-            <constructor-arg value="${DATABASE_URL}"/>
-        </bean>
-        <bean id="dataSource"
+    <bean class="java.net.URI" id="dbUrl">
+        <constructor-arg value="${DATABASE_URL}"/>
+    </bean>
+    <bean id="dataSource"
               class="org.apache.tomcat.jdbc.pool.DataSource"
               p:url="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }"
               p:username="#{ @dbUrl.getUserInfo().split(':')[0] }"
@@ -45,17 +44,6 @@
               p:removeAbandoned="true"
               p:testOnConnect="true"
               p:testWhileIdle="true"/>
-    <!--</beans>-->
-
-    <!--<context:property-placeholder location = "classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>-->
-
-    <!--<bean id="dataSource"-->
-              <!--class="org.apache.tomcat.jdbc.pool.DataSource"-->
-              <!--p:driverClassName="org.postgresql.Driver"-->
-              <!--p:url="${database.url}"-->
-              <!--p:username="${database.username}"-->
-              <!--p:password="${database.password}"/>-->
-
 
     <context:component-scan base-package="ru.agorbunov.restaurant.***.jdbc"/>
 
