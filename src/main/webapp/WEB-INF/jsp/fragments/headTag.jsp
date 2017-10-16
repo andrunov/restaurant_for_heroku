@@ -6,7 +6,7 @@ and bootstrap customise files --%>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="shortcut icon" href="resources/pictures/favicon.ico">
+    <%--<link rel="shortcut icon" href="resources/pictures/favicon.ico">--%>
 
 <%--<link rel="stylesheet" href="resources/css/style.css">--%>
     <link rel="stylesheet" href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css">
