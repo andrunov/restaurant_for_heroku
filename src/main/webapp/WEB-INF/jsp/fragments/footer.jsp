@@ -27,7 +27,7 @@
 <%--function creates an array of bundle resourses specify of users local--%>
 <script type="text/javascript">
     var i18n = {};
-    <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete","common.failed",
+    <c:forEach var='key' items='<%=new String[]{"common.select","common.update","common.delete","common.failed","common.details",
                                                     "roles.ROLE_ADMIN","roles.ROLE_USER",
                                                     "users.add","users.edit",
                                                     "restaurants.add","restaurants.edit","restaurants.select",

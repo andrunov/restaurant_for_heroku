@@ -7,13 +7,6 @@
  *represents orders, and server*/
 var ajaxUrl = '/ajax/orders/';
 
-/*url for exchange JSON data between main form DataTable (id="ordersDT")
- *represents orders, and server, using filter by status*/
-var ajaxUrlWithFilter = '/ajax/orders/filterByStatus/';
-
-var ajaxUrlWithDateFilter = '/ajax/orders/filterByDate/';
-
-
 /*url use only for create new Order*/
 var ajaxUrlCreateNew = '/ajax/orders/create';
 
@@ -146,7 +139,18 @@ function ordersDataTableInit() {
                 "asc"
             ]
         ],
-        "createdRow": "",
+        /*customize row style depending of Status*/
+        "createdRow": function (row, data, dataIndex) {
+            if (data.status==="ACCEPTED") {
+                $(row).addClass("accepted");
+            }else if (data.status==="PREPARING") {
+                $(row).addClass("preparing");
+            }else if (data.status==="READY") {
+                $(row).addClass("ready");
+            }else if (data.status==="FINISHED") {
+                $(row).addClass("finished");
+            }
+        },
         "initComplete": makeEditable
     });
 }
