@@ -286,17 +286,16 @@ $(function () {
     });
 });
 
-/*function for link to orders_dishes.jsp*/
+/*function for draw manage buttons*/
 function executionsBtns(data, type, row) {
-    if (row.status=='ACCEPTED') {
-        return  '<a class="btn btn-primary pull-left" onclick=location.href="' +goUserOrdersDetails + row.id +'&'+  row.restaurant.id+'">' +
-                '<span class="glyphicon glyphicon-list-alt"></span>'+ '  ' + i18n["common.details"] +'</a>'+
-                '<a class="btn btn-danger pull-right" onclick="deleteRow(' + row.id + ',' + row.restaurant.id + ');">' +
-                '<span class="glyphicon glyphicon-remove"></span>'+ '  ' + i18n["common.delete"] +'</a>';
-    }
-    else {
-        return '<a class="btn btn-primary pull-left" onclick=location.href="' +goUserOrdersDetails + row.id +'&'+  row.restaurant.id+'">' +
-                '<span class="glyphicon glyphicon-list-alt"></span>'+ '  ' + i18n["common.details"] +'</a>';
+    if (type == 'display') {
+        if (row.status == 'ACCEPTED') {
+            return '<div class="btn-group pull-left"><a class="btn btn-primary" onclick=location.href="' + goUserOrdersDetails + row.id + '&' + row.restaurant.id + '">' + i18n["common.details"] + '</a>' +
+                '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ',' + row.restaurant.id + ');">' + i18n["common.delete"] + '</a></div>';
+        }
+        else {
+            return '<a class="btn btn-primary pull-left" onclick=location.href="' + goUserOrdersDetails + row.id + '&' + row.restaurant.id + '">' + i18n["common.details"] + '</a>';
+        }
     }
 }
 
@@ -311,8 +310,7 @@ function addOrder() {
 function selectRestaurantBtn(data, type, row) {
     if (type == 'display') {
         restaurantTitle = row.name+", "+row.address;
-        return '<a class="btn btn-primary" onclick="openMenuListWindow(' + row.id +',\''+ restaurantTitle +'\');">' +
-            '<span class="glyphicon glyphicon-ok"></span></a>';
+        return '<a class="btn btn-primary" onclick="openMenuListWindow(' + row.id +',\''+ restaurantTitle +'\');">' + i18n["common.select"] +'</span></a>';
     }
 }
 
@@ -340,8 +338,7 @@ function openMenuListWindow(id,restaurantTitle) {
 function selectMenuListBtn(data, type, row) {
     if (type == 'display') {
         menuListTitle = row.description +", "+row.dateTime;
-        return '<a class="btn btn-primary" onclick="openDishWindow('+row.id+',\''+menuListTitle+'\');">' +
-            '<span class="glyphicon glyphicon-ok"></span></a>';
+        return '<a class="btn btn-primary" onclick="openDishWindow('+row.id+',\''+menuListTitle+'\');">' + i18n["common.select"] +'</a>';
     }
 }
 

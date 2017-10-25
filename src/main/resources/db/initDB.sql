@@ -16,7 +16,8 @@ CREATE TABLE users
   name                VARCHAR NOT NULL,
   email               VARCHAR NOT NULL UNIQUE,
   password            VARCHAR NOT NULL,
-  enabled             BOOL DEFAULT TRUE,
+  enabled             BOOL DEFAULT TRUE ,
+  hasOrders           BOOL DEFAULT FALSE ,
   totalOrdersAmount  DOUBLE PRECISION
 );
 
@@ -34,7 +35,9 @@ CREATE TABLE restaurants
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name       VARCHAR NOT NULL,
-  address    VARCHAR NOT NULL
+  address    VARCHAR NOT NULL,
+  hasOrders  BOOL DEFAULT FALSE
+
 );
 
 CREATE TABLE orders(

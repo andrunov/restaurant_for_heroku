@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.OrderRepository;
+import ru.agorbunov.restaurant.repository.RestaurantRepository;
 import ru.agorbunov.restaurant.repository.UserRepository;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
@@ -28,6 +29,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+
     /*save order if it is new entity and update if it is exist,
     *,int[] dishIds - Ids of dishes, int[] dishQuantityValues - dishes quantities,
     * each dishId from first arr matches its quantity from second arr, arrays must have equal size
@@ -44,7 +48,8 @@ public class OrderServiceImpl implements OrderService {
         ValidationUtil.checkEmptyArray(dishIds);
         ValidationUtil.checkEmptyArray(dishQuantityValues);
         Order result = checkNotFoundWithId(orderRepository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
-        userRepository.accountAndSaveTotalOrdersAmount(userId);
+        userRepository.saveValuesToDB(userId);
+        restaurantRepository.saveValuesToDB(restaurantId);
         return result;
     }
 
@@ -63,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void delete(int id) {
         checkNotFoundWithId(orderRepository.delete(id),id);
+
     }
 
     /*get all orders*/
@@ -150,7 +156,8 @@ public class OrderServiceImpl implements OrderService {
         Order order = get(id,userId,restaurantId);
         checkAcceptableUpdate(order);
         delete(id);
-        userRepository.accountAndSaveTotalOrdersAmount(userId);
+        userRepository.saveValuesToDB(userId);
+        restaurantRepository.saveValuesToDB(restaurantId);
     }
 
 }

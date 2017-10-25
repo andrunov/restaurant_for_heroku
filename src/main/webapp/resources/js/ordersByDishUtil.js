@@ -21,17 +21,6 @@ var datatableApi;
 /*variable for save current filter value*/
 var currentFilterValue = "ALL";
 
-// /*function to update DataTable by data from server*/
-// function updateTable(statusKey) {
-//     if (statusKey == "ALL") {
-//         $.get(ajaxUrl, updateTableByData);
-//     }
-//     else {
-//         $.get(ajaxUrlWithFilter+statusKey, updateTableByData);
-//     }
-//     currentFilterValue = statusKey;
-// }
-
 /*function to update DataTable by data from server
  * with filter by status of orders*/
 function updateTable(statusKey) {
@@ -109,22 +98,14 @@ $(function () {
                 }
             },
             {
-                "orderable": false,
-                "defaultContent": "",
-                "className": "dt-center",
-                "render": linkBtn
+                "data": "restaurant",
+                "visible": false
             },
             {
                 "orderable": false,
                 "defaultContent": "",
                 "className": "dt-center",
-                "render": renderEditBtn
-            },
-            {
-                "orderable": false,
-                "defaultContent": "",
-                "className": "dt-center",
-                "render": renderDeleteBtnWithFilter
+                "render": executionsBtns
             }
         ],
         "order": [
@@ -164,19 +145,12 @@ $(function () {
     
 });
 
-/*function for link to orders_dishes.jsp*/
-function linkBtn(data, type, row) {
+/*function for draw manage buttons*/
+function executionsBtns(data, type, row) {
     if (type == 'display') {
-        return '<a class="btn btn-primary" onclick=location.href="' +goOrdersDishes + row.id +'&'+  row.user.id +'">' +
-            '<span class="glyphicon glyphicon-list-alt"></span></a>';
-    }
-}
-
-/*render function draw button for update row*/
-function renderEditBtn(data, type, row) {
-    if (type == 'display') {
-        return '<a class="btn btn-primary" onclick="updateRow(' + row.id +','+  row.user.id+');">' +
-            '<span class="glyphicon glyphicon-edit"></span></a>';
+        return '<div class="btn-group pull-left"><a class="btn btn-primary" onclick=location.href="' + goOrdersDishes + row.id + '&' + row.user.id + '">' + i18n["common.details"] + '</a>' +
+            '<a class="btn btn-success" onclick="updateRow(' + row.id + ',' + row.user.id + ');">' + i18n["common.status"] + '</a>' +
+            '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ','+ row.user.id + ',' + row.restaurant.id + ');">' + i18n["common.delete"] + '</a></div>';
     }
 }
 
@@ -195,5 +169,17 @@ function updateRow(id,userId) {
             }
         });
         $('#editRow').modal();
+    });
+}
+
+/*method to delete row
+ * use in all forms*/
+function deleteRow(id,userId,restaurantId) {
+    $.ajax({
+        url: ajaxUrl + id +'&'+userId + '&'+ restaurantId,
+        type: 'DELETE',
+        success: function () {
+            updateTable(currentFilterValue);
+        }
     });
 }

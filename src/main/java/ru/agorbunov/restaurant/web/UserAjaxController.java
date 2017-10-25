@@ -57,7 +57,6 @@ public class UserAjaxController {
                                @RequestParam("password") String password,
                                @RequestParam("roles") String[] roleValues,
                                @RequestParam(value = "enabled",required = false) String enabled) {
-        ValidationUtil.checkModificationAllowed(id);
         Role[] roles = ParsingUtil.parseRoles(roleValues);
         Role firstRole = roles[0];
         Role[] restRoles = Arrays.copyOfRange(roles,roles.length - 1, roleValues.length);
@@ -69,6 +68,7 @@ public class UserAjaxController {
             log.info("create " + user);
             service.save(user);
         } else {
+            ValidationUtil.checkModificationAllowed(id);
             log.info("update " + user);
             service.save(user);
         }

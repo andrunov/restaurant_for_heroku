@@ -8,17 +8,17 @@ DELETE FROM orders_dishes;
 
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
-INSERT INTO users(name,email,password,enabled,totalOrdersAmount) VALUES
-  ('Вадим Гордеев','vgordeev.78@gmail.com','111222777','TRUE',671.0),
-  ('Роман Елисеев','r_eliseev78yandex.ru','222333555','TRUE',1109.0),
-  ('Полина Потапова','p.polya_1985@mail.ru','password','TRUE',796.0),
-  ('Ростислав Крылов','krylov.rs@yandex.ru','password','TRUE',688.1),
-  ('Вячеслав Шубин','slava_shubin@yahoo.com','password','TRUE',878.2),
-  ('Алина Ковалёва','kov.alina@gmail.com','password','TRUE',889.6),
-  ('Евгения Морозова','g.morozova@mail.ru','password','TRUE',590.0),
-  ('Эдуард Симонов','esimonov@gmail.com','password','FALSE',464.0),
-  ('Кирилл Тарасов','k_tarasov86@gmail.com','password','TRUE',668.3),
-  ('Ирина Шубина','irisha_1978@yandex.ru','password','TRUE',752.0);
+INSERT INTO users(name,email,password,enabled,hasorders,totalOrdersAmount) VALUES
+  ('Вадим Гордеев','vgordeev.78@gmail.com','111222777','TRUE','TRUE',671.0),
+  ('Роман Елисеев','r_eliseev78yandex.ru','222333555','TRUE','TRUE',1109.0),
+  ('Полина Потапова','p.polya_1985@mail.ru','password','TRUE','TRUE',796.0),
+  ('Ростислав Крылов','krylov.rs@yandex.ru','password','TRUE','TRUE',688.1),
+  ('Вячеслав Шубин','slava_shubin@yahoo.com','password','TRUE','TRUE',878.2),
+  ('Алина Ковалёва','kov.alina@gmail.com','password','TRUE','TRUE',889.6),
+  ('Евгения Морозова','g.morozova@mail.ru','password','TRUE','TRUE',590.0),
+  ('Эдуард Симонов','esimonov@gmail.com','password','FALSE','TRUE',464.0),
+  ('Кирилл Тарасов','k_tarasov86@gmail.com','password','TRUE','TRUE',668.3),
+  ('Ирина Шубина','irisha_1978@yandex.ru','password','TRUE','TRUE',752.0);
 
 INSERT INTO roles(user_id, role) VALUES
   (100000,'ROLE_USER'),
@@ -32,17 +32,17 @@ INSERT INTO roles(user_id, role) VALUES
   (100008,'ROLE_USER'),
   (100009,'ROLE_USER');
 
-INSERT INTO restaurants(name, address) VALUES
-  ('Рандеву','ул. Некрасова, 7'),
-  ('Прованс','пл. Пушкина, 6'),
-  ('Бригантина','Привокзальная пл, 3'),
-  ('Алые паруса','ул. Баррикадная, 17'),
-  ('Дюймовочка','ул. Василевского, 25'),
-  ('Золотая хохлома','ул. Декабристов, 62'),
-  ('Юбилейное','ул. Балчуг, 75'),
-  ('Пегас','ул. Советская, 52'),
-  ('Мираж','ул. Железнодорожников, 8'),
-  ('Глобус','ул. Журавлёва, 29');
+INSERT INTO restaurants(name, address, hasOrders) VALUES
+  ('Рандеву','ул. Некрасова, 7','TRUE'),
+  ('Прованс','пл. Пушкина, 6','TRUE'),
+  ('Бригантина','Привокзальная пл, 3','TRUE'),
+  ('Алые паруса','ул. Баррикадная, 17','TRUE'),
+  ('Дюймовочка','ул. Василевского, 25','TRUE'),
+  ('Золотая хохлома','ул. Декабристов, 62','TRUE'),
+  ('Юбилейное','ул. Балчуг, 75','TRUE'),
+  ('Пегас','ул. Советская, 52','TRUE'),
+  ('Мираж','ул. Железнодорожников, 8','TRUE'),
+  ('Глобус','ул. Журавлёва, 29','TRUE');
 
 INSERT INTO menu_lists(restaurant_id, description, date_time, enabled) VALUES
   (100010,'Меню на 30.09','2017-09-30 10:30:00','FALSE'),
@@ -373,9 +373,9 @@ INSERT INTO orders(user_id, restaurant_id, date_time, status, total_price) VALUE
   (100000,	100011,	'2017-09-14 17:00:00',	'FINISHED',	85),
   (100002,	100016,	'2017-10-09 09:00:00',	'READY',	76),
   (100004,	100015,	'2017-10-09 10:00:00',	'READY',	105.7),
-  (100004,	100012,	'2017-10-09 23:00:00',	'ACCEPTED',	118),
-  (100001,	100013,	'2017-10-09 10:00:00',	'READY',	145),
-  (100001,	100013,	'2017-10-09 18:00:00',	'PREPARING',	110),
+  (100004,	100013,	'2017-10-09 23:00:00',	'ACCEPTED',	118),
+  (100001,	100014,	'2017-10-09 10:00:00',	'READY',	145),
+  (100001,	100014,	'2017-10-09 18:00:00',	'PREPARING',	110),
   (100006,	100014,	'2017-10-09 09:00:00',	'READY',	80),
   (100006,	100014,	'2017-10-09 22:22:08',	'ACCEPTED',	65),
   (100006,	100014,	'2017-10-01 18:00:00',	'FINISHED',	90),
@@ -387,7 +387,7 @@ INSERT INTO orders(user_id, restaurant_id, date_time, status, total_price) VALUE
   (100003,	100010,	'2017-09-25 18:00:00',	'FINISHED',	60.8),
   (100008,	100015,	'2017-10-09 10:00:00',	'READY',	130.5),
   (100008,	100018,	'2017-10-09 18:00:00',	'PREPARING',	55),
-  (100003,	100013,	'2017-09-22 20:00:00',	'FINISHED',	175),
+  (100003,	100016,	'2017-09-22 20:00:00',	'FINISHED',	175),
   (100002,	100016,	'2017-09-07 08:00:00',	'FINISHED',	59),
   (100002,	100016,	'2017-09-14 13:00:00',	'FINISHED',	73),
   (100003,	100012,	'2017-10-09 09:00:00',	'READY',	26),

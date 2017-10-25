@@ -58,9 +58,8 @@
                         <th><fmt:message key="common.dateTime"/></th>
                         <th><fmt:message key="users.name"/></th>
                         <th><fmt:message key="users.email"/></th>
-                        <th><fmt:message key="orders.content"/></th>
-                        <th><fmt:message key="common.update"/></th>
-                        <th><fmt:message key="common.delete"/></th>
+                        <th hidden></th>
+                        <th class="col-sm-3"><fmt:message key="orders.executions"/></th>
                     </tr>
                     </thead>
                 </table>

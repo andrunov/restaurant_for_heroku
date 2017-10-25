@@ -27,9 +27,7 @@
                     <tr>
                         <th><fmt:message key="dishes.description"/></th>
                         <th><fmt:message key="dishes.price"/></th>
-                        <th><fmt:message key="orders.title"/></th>
-                        <th><fmt:message key="common.update"/></th>
-                        <th><fmt:message key="common.delete"/></th>
+                        <th width="26%"><fmt:message key="dishes.executions"/></th>
                     </tr>
                     </thead>
                 </table>
