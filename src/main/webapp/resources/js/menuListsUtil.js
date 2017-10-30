@@ -108,9 +108,14 @@ $(function () {
 /*function for draw manage buttons*/
 function executionsBtns(data, type, row) {
     if (type == 'display') {
-        return '<div class="btn-group pull-left"><a class="btn btn-primary" onclick=location.href="' + goDishes + row.id + '">' + i18n["menuLists.content"] + '</a>' +
-            '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.status"] + '</a>' +
-            '<a class="btn btn-danger" onclick="deleteRowWithFilter(' + row.id + ');">' + i18n["common.delete"] + '</a></div>';
+        if (row.hasOrders) {
+            return '<div class="btn-group pull-left"><a class="btn btn-primary" onclick=location.href="' + goDishes + row.id + '">' + i18n["menuLists.content"] + '</a>' +
+                '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.status"] + '</a>';
+        }else {
+            return '<div class="btn-group pull-left"><a class="btn btn-primary" onclick=location.href="' + goDishes + row.id + '">' + i18n["menuLists.content"] + '</a>' +
+                '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.status"] + '</a>' +
+                '<a class="btn btn-danger" onclick="deleteRowWithFilter(' + row.id + ');">' + i18n["common.delete"] + '</a></div>';
+        }
     }
 }
 

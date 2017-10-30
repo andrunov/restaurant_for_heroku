@@ -3,19 +3,18 @@ package ru.agorbunov.restaurant.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import ru.agorbunov.restaurant.model.Dish;
+import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Order;
-import ru.agorbunov.restaurant.repository.OrderRepository;
-import ru.agorbunov.restaurant.repository.RestaurantRepository;
-import ru.agorbunov.restaurant.repository.UserRepository;
+import ru.agorbunov.restaurant.repository.*;
 import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
-import static ru.agorbunov.restaurant.util.ValidationUtil.checkAcceptableUpdate;
-import static ru.agorbunov.restaurant.util.ValidationUtil.checkArrCompatibility;
-import static ru.agorbunov.restaurant.util.ValidationUtil.checkNotFoundWithId;
+import static ru.agorbunov.restaurant.util.ValidationUtil.*;
 
 /**
  * Class for exchange order-entity data between web and orderRepository layers
@@ -31,6 +30,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+
+    @Autowired
+    private MenuListRepository menuListRepository;
+
+    @Autowired
+    private DishRepository dishRepository;
 
     /*save order if it is new entity and update if it is exist,
     *,int[] dishIds - Ids of dishes, int[] dishQuantityValues - dishes quantities,
@@ -50,6 +55,8 @@ public class OrderServiceImpl implements OrderService {
         Order result = checkNotFoundWithId(orderRepository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
         userRepository.saveValuesToDB(userId);
         restaurantRepository.saveValuesToDB(restaurantId);
+        dishRepository.saveValuesToDB(dishIds);
+        menuListRepository.saveValuesToDB(menuListRepository.getByDish(dishIds[0]).getId());
         return result;
     }
 
@@ -153,11 +160,22 @@ public class OrderServiceImpl implements OrderService {
     *  update totalOrdersAmount in corresponding user-entity in success case*/
     @Override
     public void delete(int id, int userId, int restaurantId) {
-        Order order = get(id,userId,restaurantId);
+        Order order = getWithDishes(id,userId,restaurantId);
         checkAcceptableUpdate(order);
         delete(id);
         userRepository.saveValuesToDB(userId);
         restaurantRepository.saveValuesToDB(restaurantId);
+        int[] dishIds = getDishIds(order.getDishes().keySet());
+        dishRepository.saveValuesToDB(dishIds);
+        menuListRepository.saveValuesToDB(menuListRepository.getByDish(dishIds[0]).getId());
     }
 
+    private int[] getDishIds(Set<Dish> dishes){
+        int[] result = new int[dishes.size()];
+        int counter = 0;
+        for (Dish dish : dishes){
+            result[counter++] = dish.getId();
+        }
+        return result;
+    }
 }

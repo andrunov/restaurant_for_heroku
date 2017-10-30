@@ -57,6 +57,7 @@ CREATE TABLE menu_lists(
   date_time      TIMESTAMP NOT NULL,
   restaurant_id INTEGER NOT NULL ,
   enabled    BOOL DEFAULT TRUE,
+  hasOrders  BOOL DEFAULT FALSE,
   FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
 );
 
@@ -66,6 +67,7 @@ CREATE TABLE dishes
   description      VARCHAR NOT NULL,
   price             DOUBLE PRECISION,
   menu_list_id     INTEGER NOT NULL ,
+  hasOrders  BOOL DEFAULT FALSE,
   FOREIGN KEY (menu_list_id) REFERENCES menu_lists (id) ON DELETE CASCADE
 );
 

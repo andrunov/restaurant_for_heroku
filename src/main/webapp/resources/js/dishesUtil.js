@@ -61,9 +61,15 @@ $(function () {
 /*function for draw manage buttons*/
 function executionsBtns(data, type, row) {
     if (type == 'display') {
-        return '<div class="btn-group pull-left"><a class="btn btn-primary" onclick=location.href="' + goOrdersByDish + row.id + '">' + i18n["orders.title"] + '</a>' +
-            '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.update"] + '</a>' +
-            '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ');">' + i18n["common.delete"] + '</a></div>';
+        if (row.hasOrders) {
+            return '<div class="btn-group pull-left"><a class="btn btn-primary" onclick=location.href="' + goOrdersByDish + row.id + '">' + i18n["orders.title"] + '</a>' +
+                '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.update"] + '</a>';
+        }else {
+            return '<div class="btn-group pull-left"><a class="btn btn-primary" disabled="true">' + i18n["orders.title"] + '</a>' +
+                '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.update"] + '</a>' +
+                '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ');">' + i18n["common.delete"] + '</a></div>';
+
+        }
     }
 }
 

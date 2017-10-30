@@ -130,13 +130,13 @@ $(function () {
 /*function for draw manage buttons*/
 function executionsBtns(data, type, row) {
     if (type == 'display') {
-        if (row.hasOrders===false) {
+        if (row.hasOrders) {
+            return '<div class="btn-group pull-left"><a class="btn btn-primary pull-left" onclick=location.href="' + goOrdersUrl + row.id + '">' + i18n["orders.title"] + '</a>' +
+                '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.update"] + '</a></div>';
+        }else {
             return '<div class="btn-group pull-left"><a class="btn btn-primary" onclick=location.href="' + goOrdersUrl + row.id + '">' + i18n["orders.title"] + '</a>' + " "+
                 '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.update"] + '</a>' +
                 '<a class="btn btn-danger" onclick="deleteRow(' + row.id + ');">' + i18n["common.delete"] + '</a></div>';
-        }else {
-            return '<div class="btn-group pull-left"><a class="btn btn-primary pull-left" onclick=location.href="' + goOrdersUrl + row.id + '">' + i18n["orders.title"] + '</a>' +
-                '<a class="btn btn-success" onclick="updateRow(' + row.id + ');">' + i18n["common.update"] + '</a></div>';
         }
     }
 }
