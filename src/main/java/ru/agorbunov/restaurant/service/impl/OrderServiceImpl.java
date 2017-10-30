@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.agorbunov.restaurant.model.Dish;
-import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.model.Order;
 import ru.agorbunov.restaurant.repository.*;
 import ru.agorbunov.restaurant.service.OrderService;
