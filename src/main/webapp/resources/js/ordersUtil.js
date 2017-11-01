@@ -22,6 +22,9 @@ var ajaxDishesUrl = '/ajax/dishes/byMenuList/';
 /*url for link to orders_dishes.jsp*/
 var goOrdersDishes = '/orders_dishes/';
 
+/*url for link to menuLists.jsp*/
+var goMenuLists = '/menuLists/';
+
 /*url for redirect to orders_dishes.jsp after POST method*/
 var redirectOrdersDishes = 'orders_dishes';
 
@@ -105,7 +108,7 @@ function ordersDataTableInit() {
             {
                 "data": "restaurant",
                 "render": function (date, type, row) {
-                    return (date.name +', '+ date.address);
+                        return '<a href="' + goMenuLists + date.id + '">' + date.name + ', ' + date.address + '</a>';
                 }
             },
             {

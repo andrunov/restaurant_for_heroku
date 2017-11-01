@@ -18,7 +18,7 @@
     <div class="jumbotron">
         <div class="shadow">
             <h3>${dish.description}: <fmt:message key="orders.list"/></h3>
-            <p style="color: darkgreen">${restaurant.name}, ${restaurant.address};  <span style="color: darkred">${menuList.description}, ${localDate}</span></p>
+            <p><a href="/menuLists/${restaurant.id}"><span style="color: darkgreen">${restaurant.name}, ${restaurant.address}</span></a>;  <a href="/dishes/${menuList.id}"><span style="color: darkred">${menuList.description}, ${localDate}</span></a></p>
             <table class="table" >
                 <tr>
                     <td>

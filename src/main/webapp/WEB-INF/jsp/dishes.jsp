@@ -15,7 +15,7 @@
 <div class="container">
     <div class="jumbotron">
         <div class="shadow">
-            <h3>${restaurant.name}, ${restaurant.address}</h3>
+            <h3><a href="/menuLists/${restaurant.id}">${restaurant.name}, ${restaurant.address}</a></h3>
             <p style="color: darkgreen">${description}, ${localDate} - <span style="color: darkred"><fmt:message key="menuLists.contentSmall"/></span></p>
             <div class="view-box">
                 <a class="btn btn-primary" type="button" onclick="add()">
