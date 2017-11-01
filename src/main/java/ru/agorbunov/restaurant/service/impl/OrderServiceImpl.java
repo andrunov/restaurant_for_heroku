@@ -10,6 +10,7 @@ import ru.agorbunov.restaurant.service.OrderService;
 import ru.agorbunov.restaurant.util.ValidationUtil;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -51,10 +52,14 @@ public class OrderServiceImpl implements OrderService {
         ValidationUtil.checkEmpty(order.getDateTime(),"dateTime");
         ValidationUtil.checkEmptyArray(dishIds);
         ValidationUtil.checkEmptyArray(dishQuantityValues);
+        int[] oldDishIds = new int[0];
+        if (!order.isNew()){
+            oldDishIds = getDishIds(orderRepository.getWithDishes(order.getId(),userId,restaurantId).getDishes().keySet());
+        }
         Order result = checkNotFoundWithId(orderRepository.save(order,userId,restaurantId,dishIds,dishQuantityValues),order.getId());
         userRepository.saveValuesToDB(userId);
         restaurantRepository.saveValuesToDB(restaurantId);
-        dishRepository.saveValuesToDB(dishIds);
+        dishRepository.saveValuesToDB(getResultArr(oldDishIds,dishIds));
         menuListRepository.saveValuesToDB(menuListRepository.getByDish(dishIds[0]).getId());
         return result;
     }
@@ -169,11 +174,31 @@ public class OrderServiceImpl implements OrderService {
         menuListRepository.saveValuesToDB(menuListRepository.getByDish(dishIds[0]).getId());
     }
 
+    /*transform Set<Dish> to int[] of dishes ids*/
     private int[] getDishIds(Set<Dish> dishes){
         int[] result = new int[dishes.size()];
         int counter = 0;
         for (Dish dish : dishes){
             result[counter++] = dish.getId();
+        }
+        return result;
+    }
+
+    /*get result int[] containing all elements of two arrays int[] sending in parameters*/
+    private int[] getResultArr(int[] oldDishesIds, int[] newDishesIds){
+        List<Integer> list = new ArrayList<>();
+        for (Integer dishId : oldDishesIds){
+            list.add(dishId);
+        }
+
+        for (Integer dishId : newDishesIds){
+            if (!list.contains(dishId)){
+                list.add(dishId);
+            }
+        }
+        int[] result = new int[list.size()];
+        for (int index = 0; index < list.size(); index++){
+            result[index] = list.get(index);
         }
         return result;
     }
