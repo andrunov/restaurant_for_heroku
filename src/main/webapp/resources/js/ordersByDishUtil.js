@@ -15,6 +15,9 @@ var editTitleKey ="orders.edit";
 /*url for link to orders_dishes.jsp*/
 var goOrdersDishes = '/orders_dishes_by_user/';
 
+/*url for link to orders.jsp*/
+var goOrders = '/orders/';
+
 /*variable links to DataTable represents orders in orders_by_dish.jsp*/
 var datatableApi;
 
@@ -85,7 +88,7 @@ $(function () {
             {
                 "data": "user",
                 "render": function (date, type, row) {
-                    return (date.name);
+                    return '<a href="' + goOrders + date.id + '">' + date.name + '</a>';
                 }
             },
             {

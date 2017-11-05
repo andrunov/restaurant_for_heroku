@@ -31,7 +31,7 @@ $(function () {
             "dataSrc": ""
         },
         "paging": false,
-        "searching": false,
+        "searching": true,
         "info": true,
         "columns": [
             {
