@@ -56,6 +56,7 @@ public class JdbcDishRepositoryImpl<T> implements DishRepository {
                 .addValue("description", dish.getDescription())
                 .addValue("price", dish.getPrice());
         if (dish.isNew()) {
+            map.addValue("hasOrders", false);
             Number newKey = insertDish.executeAndReturnKey(map);
             dish.setId(newKey.intValue());
         } else {

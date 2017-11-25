@@ -19,7 +19,6 @@ import ru.agorbunov.restaurant.repository.OrderRepository;
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -53,23 +52,23 @@ public abstract class JdbcOrderRepositoryImpl<T> implements OrderRepository {
                 .usingGeneratedKeyColumns("id");
     }
 
-    /*Customise repository for HSQLDB*/
-//    @Repository
-//    public static class Java8JdbcOrderRepositoryImpl extends JdbcOrderRepositoryImpl<LocalDateTime> {
-//        @Override
-//        protected LocalDateTime toDbDateTime(LocalDateTime ldt) {
-//            return ldt;
-//        }
-//    }
-
     /*Customise repository for Postgres*/
     @Repository
-    public static class TimestampJdbcOrderRepositoryImpl extends JdbcOrderRepositoryImpl<Timestamp> {
+    public static class Java8JdbcOrderRepositoryImpl extends JdbcOrderRepositoryImpl<LocalDateTime> {
         @Override
-        protected Timestamp toDbDateTime(LocalDateTime ldt) {
-            return Timestamp.valueOf(ldt);
+        protected LocalDateTime toDbDateTime(LocalDateTime ldt) {
+            return ldt;
         }
     }
+
+    /*Customise repository for HSQLDB*/
+//    @Repository
+//    public static class TimestampJdbcOrderRepositoryImpl extends JdbcOrderRepositoryImpl<Timestamp> {
+//        @Override
+//        protected Timestamp toDbDateTime(LocalDateTime ldt) {
+//            return Timestamp.valueOf(ldt);
+//        }
+//    }
 
     /*save order in database if it is new entity and update if it is exist,
     *int[] dishIds - Ids of dishes, int[] dishQuantityValues - dishes quantities,

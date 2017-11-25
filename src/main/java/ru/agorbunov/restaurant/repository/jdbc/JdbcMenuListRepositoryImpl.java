@@ -14,7 +14,6 @@ import ru.agorbunov.restaurant.model.MenuList;
 import ru.agorbunov.restaurant.repository.MenuListRepository;
 
 import javax.sql.DataSource;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -48,22 +47,22 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
     }
 
     /*Customise repository for Postgres*/
-//    @Repository
-//    public static class Java8JdbcMenuListRepositoryImpl extends JdbcMenuListRepositoryImpl<LocalDateTime> {
-//        @Override
-//        protected LocalDateTime toDbDateTime(LocalDateTime ldt) {
-//            return ldt;
-//        }
-//    }
-
-    /*Customise repository for HSQLDB*/
     @Repository
-    public static class TimestampJdbcMenuListRepositoryImpl extends JdbcMenuListRepositoryImpl<Timestamp> {
+    public static class Java8JdbcMenuListRepositoryImpl extends JdbcMenuListRepositoryImpl<LocalDateTime> {
         @Override
-        protected Timestamp toDbDateTime(LocalDateTime ldt) {
-            return Timestamp.valueOf(ldt);
+        protected LocalDateTime toDbDateTime(LocalDateTime ldt) {
+            return ldt;
         }
     }
+
+    /*Customise repository for HSQLDB*/
+//    @Repository
+//    public static class TimestampJdbcMenuListRepositoryImpl extends JdbcMenuListRepositoryImpl<Timestamp> {
+//        @Override
+//        protected Timestamp toDbDateTime(LocalDateTime ldt) {
+//            return Timestamp.valueOf(ldt);
+//        }
+//    }
 
     /*save menuList in database, restaurantId in parameters is Id
     *of restaurant to which the menuList is belong*/
@@ -78,6 +77,7 @@ public abstract class JdbcMenuListRepositoryImpl<T> implements MenuListRepositor
                 .addValue("enabled", menuList.isEnabled());
 
         if (menuList.isNew()) {
+            map.addValue("hasOrders", false);
             Number newKey = insertMenuList.executeAndReturnKey(map);
             menuList.setId(newKey.intValue());
         } else {
